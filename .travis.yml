@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - master
+
+branches:
+  only:
+    - master
+
+script:
+  - go vet ./...
+  - go test ./tests
