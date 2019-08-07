@@ -1,0 +1,21 @@
+package problems
+
+import (
+    "testing"
+)
+
+/**
+ * [__PROBLEM_ID__] __PROBLEM_TITLE__
+ *
+ * __PROBLEM_DESC__
+ */
+
+func Test__TEST_TITLE__(t testing.T) {
+
+}
+
+// submission codes start here
+
+__PROBLEM_DEFAULT_CODE__
+
+// submission codes end
