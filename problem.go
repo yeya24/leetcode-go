@@ -58,7 +58,7 @@ func getProblemWithTitle(client *client, title string) (*problem, error) {
 	}
 
 	for _, p := range problems.StatStatusPairs {
-		if p.Stat.QuestionTitleSlug == title {
+		if p.Stat.QuestionTitle == title {
 			return getQuestionByTitle(client, p)
 		}
 	}

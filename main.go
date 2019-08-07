@@ -59,7 +59,7 @@ func main() {
 
 	// use problem title
 	if title != "" {
-		problem, err = getProblemWithTitle(NewClient(15), title)
+		problem, err = getProblemWithTitle(NewClient(15), strings.TrimSpace(title))
 		if err != nil {
 			fmt.Println("Cannot get the specific problem")
 			os.Exit(1)
@@ -74,13 +74,13 @@ func main() {
 
 	filePath := fmt.Sprintf("tests/%04d_%s_test.go", problem.id, strings.Replace(problem.titleSlug, "-", "_", -1))
 	if _, err := os.Stat(filePath); err == nil || os.IsExist(err) {
-		fmt.Printf("File already exists", err)
+		fmt.Printf("File already exists: %v\n", err)
 		os.Exit(1)
 	}
 
 	sources, err := ioutil.ReadFile("template")
 	if err != nil {
-		fmt.Println("Error open problem template")
+		fmt.Printf("Error open problem template: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -88,7 +88,7 @@ func main() {
 	// Generate code template.
 
 	if err := ioutil.WriteFile(filePath, data, 0644); err != nil {
-		fmt.Println("Error generate problem template")
+		fmt.Printf("Error generate problem template: %v\n", err)
 		os.Exit(1)
 	}
 
