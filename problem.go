@@ -14,7 +14,7 @@ import (
 
 const (
 	GRAPHQL_URL  = "https://leetcode.com/graphql"
-	PROBLEMS_URL = "https://leetcode.com/api/problems/algorithms/"
+	PROBLEMS_URL = "https://leetcode.com/api/problems/all/"
 )
 
 var questionReq = graphql.NewRequest(`
@@ -29,6 +29,7 @@ query questionData($titleSlug: String!) {
 }`)
 
 type problem struct {
+	id             int
 	title          string
 	titleSlug      string
 	Code           string
@@ -45,6 +46,21 @@ func getProblemWithID(client *client, id int) (*problem, error) {
 
 	for _, p := range problems.StatStatusPairs {
 		if p.Stat.QuestionID == id {
+			return getQuestion(client, p)
+		}
+	}
+
+	return nil, errors.New(fmt.Sprintf("cannot find the specific problem id: %d\n", id))
+}
+
+func getProblemWithTitle(client *client, title string) (*problem, error) {
+	problems, err := getProblems(client)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, p := range problems.StatStatusPairs {
+		if p.Stat.QuestionTitle == title {
 			return getQuestion(client, p)
 		}
 	}
@@ -78,6 +94,7 @@ func getQuestion(client *client, p ProblemStatStatus) (*problem, error) {
 	}
 
 	problem := &problem{
+		id:             p.Stat.QuestionID,
 		title:          p.Stat.QuestionTitle,
 		titleSlug:      p.Stat.QuestionTitleSlug,
 		content:        rp.Question.Content,
@@ -126,7 +143,6 @@ type RawProblem struct {
 }
 
 type Question struct {
-	Codes          Codes  `json:"-"`
 	Content        string `json:"content"`
 	Stats          string `json:"stats"`
 	CodeDefinition string `json:"codeDefinition"`
