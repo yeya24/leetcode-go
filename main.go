@@ -72,9 +72,9 @@ func main() {
 		}
 	}
 
-	filePath := fmt.Sprintf("tests/%04d_%s_test.go", id, strings.Replace(problem.titleSlug, "-", "_", -1))
-	if _, err := os.Stat(filePath); os.IsExist(err) {
-		fmt.Printf("Error stat filepath, %v\n", err)
+	filePath := fmt.Sprintf("tests/%04d_%s_test.go", problem.id, strings.Replace(problem.titleSlug, "-", "_", -1))
+	if _, err := os.Stat(filePath); err == nil || os.IsExist(err) {
+		fmt.Printf("File already exists", err)
 		os.Exit(1)
 	}
 

@@ -29,13 +29,11 @@ query questionData($titleSlug: String!) {
 }`)
 
 type problem struct {
-	id             int
-	title          string
-	titleSlug      string
-	Code           string
-	content        string
-	sampleTestCase string
-	difficulty     string
+	id        int
+	title     string
+	titleSlug string
+	Code      string
+	content   string
 }
 
 func getProblemWithID(client *client, id int) (*problem, error) {
@@ -46,7 +44,7 @@ func getProblemWithID(client *client, id int) (*problem, error) {
 
 	for _, p := range problems.StatStatusPairs {
 		if p.Stat.QuestionID == id {
-			return getQuestion(client, p)
+			return getQuestionByID(client, p)
 		}
 	}
 
@@ -60,12 +58,12 @@ func getProblemWithTitle(client *client, title string) (*problem, error) {
 	}
 
 	for _, p := range problems.StatStatusPairs {
-		if p.Stat.QuestionTitle == title {
-			return getQuestion(client, p)
+		if p.Stat.QuestionTitleSlug == title {
+			return getQuestionByTitle(client, p)
 		}
 	}
 
-	return nil, errors.New(fmt.Sprintf("cannot find the specific problem id: %d\n", id))
+	return nil, errors.New(fmt.Sprintf("cannot find the specific problem title: %s\n", title))
 }
 
 func getProblems(client *client) (*Problems, error) {
@@ -80,7 +78,7 @@ func getProblems(client *client) (*Problems, error) {
 	return &problems, nil
 }
 
-func getQuestion(client *client, p ProblemStatStatus) (*problem, error) {
+func getQuestionByID(client *client, p ProblemStatStatus) (*problem, error) {
 	// set any variables
 	questionReq.Var("titleSlug", p.Stat.QuestionTitleSlug)
 	rp := new(RawProblem)
@@ -94,12 +92,41 @@ func getQuestion(client *client, p ProblemStatStatus) (*problem, error) {
 	}
 
 	problem := &problem{
-		id:             p.Stat.QuestionID,
-		title:          p.Stat.QuestionTitle,
-		titleSlug:      p.Stat.QuestionTitleSlug,
-		content:        rp.Question.Content,
-		sampleTestCase: rp.Question.SampleTestCase,
-		difficulty:     p.Difficulty.String(),
+		id:        p.Stat.QuestionID,
+		title:     p.Stat.QuestionTitle,
+		titleSlug: p.Stat.QuestionTitleSlug,
+		content:   rp.Question.Content,
+	}
+
+	var cds Codes
+
+	if err = json.Unmarshal([]byte(s), &cds); err != nil {
+		return nil, err
+	}
+
+	problem.Code = cds.Code("go").DefaultCode
+
+	return problem, nil
+}
+
+func getQuestionByTitle(client *client, p ProblemStatStatus) (*problem, error) {
+	// set any variables
+	questionReq.Var("titleSlug", p.Stat.QuestionTitleSlug)
+	rp := new(RawProblem)
+	if err := client.gc.Run(context.Background(), questionReq, rp); err != nil {
+		return nil, err
+	}
+
+	s, err := strconv.Unquote(strconv.Quote(rp.Question.CodeDefinition))
+	if err != nil {
+		return nil, err
+	}
+
+	problem := &problem{
+		id:        p.Stat.QuestionID,
+		title:     p.Stat.QuestionTitle,
+		titleSlug: p.Stat.QuestionTitleSlug,
+		content:   rp.Question.Content,
 	}
 
 	var cds Codes
