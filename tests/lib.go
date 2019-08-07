@@ -1,4 +1,4 @@
-package problems
+package tests
 
 //Definition for a linkedlist node.
 type ListNode struct {

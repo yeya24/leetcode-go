@@ -1,4 +1,4 @@
-package problems
+package tests
 
 import (
     "testing"
@@ -10,7 +10,7 @@ import (
  * __PROBLEM_DESC__
  */
 
-func Test__TEST_TITLE__(t testing.T) {
+func Test__TEST_TITLE__(t *testing.T) {
 
 }
 

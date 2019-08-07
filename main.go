@@ -60,9 +60,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fileName := fmt.Sprintf("%04d_%s", id, strings.Replace(problem.titleSlug, "-", "_", -1))
-	filePath := "problems/" + fileName + ".go"
-
+	filePath := fmt.Sprintf("tests/%04d_%s_test.go", id, strings.Replace(problem.titleSlug, "-", "_", -1))
 	if _, err := os.Stat(filePath); os.IsExist(err) {
 		fmt.Printf("Error stat filepath, %v\n", err)
 		os.Exit(1)
