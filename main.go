@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -31,6 +32,11 @@ var valueMap = map[string]string{
 	"<sub>":     "",
 	"</sub>":    "",
 	"</sup>":    "",
+	"<div>":     "",
+	"</div>":    "",
+	"<span>":    "",
+	"</span>":   "",
+	"</a>":      "",
 	"<sup>":     "^",
 	"&nbsp;":    " ",
 	"&gt;":      ">",
@@ -54,7 +60,7 @@ func main() {
 
 	var (
 		problem *problem
-		err error
+		err     error
 	)
 
 	// use problem title
@@ -107,6 +113,12 @@ func generateTemplate(data string, problem *problem) []byte {
 func buildDescription(desc string) string {
 	for k, v := range valueMap {
 		desc = strings.Replace(desc, k, v, -1)
+	}
+	regs := []*regexp.Regexp{regexp.MustCompile("<span.+>"), regexp.MustCompile("<a.+>")}
+	for _, r := range regs {
+		for _, s := range r.FindAllString(desc, -1) {
+			desc = strings.Replace(desc, s, "", -1)
+		}
 	}
 	return desc
 }
