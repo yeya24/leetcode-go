@@ -37,13 +37,43 @@ import (
  */
 
 func TestClimbingStairs(t *testing.T) {
-
+    cases := []struct {
+        input  int
+        expect int
+    }{
+        {
+            input: 1,
+            expect: 1,
+        },
+        {
+            input: 2,
+            expect: 2,
+        },
+        {
+            input: 3,
+            expect: 3,
+        },
+    }
+    for _, c := range cases {
+        if climbStairs(c.input) != c.expect {
+            t.Fail()
+        }
+    }
 }
 
 // submission codes start here
 
 func climbStairs(n int) int {
-    
+    if n <= 2 {
+        return n
+    }
+    a := make([]int, n+1)
+    a[1] = 1
+    a[2] = 2
+    for i := 3; i <= n; i++ {
+        a[i] = a[i-1] + a[i-2]
+    }
+    return a[n]
 }
 
 // submission codes end
