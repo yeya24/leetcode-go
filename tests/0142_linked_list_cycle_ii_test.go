@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -43,8 +42,9 @@ func TestLinkedListCycleII(t *testing.T) {
 	node1 := &ListNode{Val: 1}
 	node2 := &ListNode{Val: 2, Next: node1}
 	node1.Next = node2
-	a := detectCycle(node1)
-	fmt.Println(a)
+	if node1 != detectCycle(node1) {
+		t.Fail()
+	}
 }
 
 // submission codes start here
