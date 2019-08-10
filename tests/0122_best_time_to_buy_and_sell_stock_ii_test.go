@@ -73,21 +73,13 @@ func maxProfitII(prices []int) int {
 	if len(prices) == 0 {
 		return 0
 	}
-	l := make([]int, len(prices)-1)
-	for i := 0; i < len(prices)-1; i++ {
-		l[i] = prices[i+1] - prices[i]
-	}
-	max := 0
 	sum := 0
-	for _, v := range l {
-		if v > 0 {
-			sum += v
-		}
-		if sum > max {
-			max = sum
+	for i := 0; i < len(prices)-1; i++ {
+		if prices[i+1] > prices[i] {
+			sum += prices[i+1] - prices[i]
 		}
 	}
-	return max
+	return sum
 }
 
 // submission codes end
