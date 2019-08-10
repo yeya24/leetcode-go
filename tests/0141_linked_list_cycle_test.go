@@ -76,21 +76,24 @@ func TestLinkedListCycle(t *testing.T) {
  * }
  */
 func hasCycle(head *ListNode) bool {
-	if head == nil {
+	if head == nil || head.Next == nil {
 		return false
 	}
 	slow := head
-	fast := head
-	for fast.Next != nil && fast.Next.Next != nil {
-		fast = fast.Next.Next
-		slow = slow.Next
-
-		if fast == slow {
+	fast := head.Next
+	for {
+		if fast == nil {
+			return false
+		}
+		if slow == fast {
 			return true
 		}
+		slow = slow.Next
+		fast = fast.Next
+		if fast != nil {
+			fast = fast.Next
+		}
 	}
-
-	return false
 }
 
 // submission codes end

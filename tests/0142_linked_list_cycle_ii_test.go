@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -39,7 +40,11 @@ import (
  */
 
 func TestLinkedListCycleII(t *testing.T) {
-
+	node1 := &ListNode{Val: 1}
+	node2 := &ListNode{Val: 2, Next: node1}
+	node1.Next = node2
+	a := detectCycle(node1)
+	fmt.Println(a)
 }
 
 // submission codes start here
@@ -52,26 +57,29 @@ func TestLinkedListCycleII(t *testing.T) {
  * }
  */
 func detectCycle(head *ListNode) *ListNode {
-	if head == nil {
+	if head == nil || head.Next == nil {
 		return nil
 	}
-	var flag bool
-	slow := head
-	fast := head
-	for fast.Next != nil && fast.Next.Next != nil {
-		fast = fast.Next.Next
-		slow = slow.Next
-
-		if fast == slow {
-			flag = true
+	//assume at least 3 nodes
+	dumyHead := &ListNode{
+		Next:head,
+	}
+	fast, slow := dumyHead, dumyHead
+	for {
+		if fast == nil {
+			return nil
+		}
+		if slow == fast && fast != dumyHead {
+			slow = dumyHead
 			break
+		}
+		slow = slow.Next
+		fast = fast.Next
+		if fast != nil {
+			fast = fast.Next
 		}
 	}
 
-	if ! flag {
-		return nil
-	}
-	slow = head
 	for slow != fast {
 		slow = slow.Next
 		fast = fast.Next
