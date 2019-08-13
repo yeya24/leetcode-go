@@ -41,6 +41,8 @@ var valueMap = map[string]string{
 	"<ol>":      "",
 	"</ol>":     "",
 	"</font>":   "",
+	"<u>":       "",
+	"</u>":      "",
 	"<sup>":     "^",
 	"&nbsp;":    " ",
 	"&gt;":      ">",
