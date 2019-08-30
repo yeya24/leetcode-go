@@ -41,6 +41,7 @@ var valueMap = map[string]string{
 	"</blockquote>": "",
 	"<br>":          "",
 	"<br />":        "",
+	"<br/>":         "",
 	"<ol>":          "",
 	"</ol>":         "",
 	"</font>":       "",
