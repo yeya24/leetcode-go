@@ -60,7 +60,7 @@ func maxSumAfterPartitioning(A []int, K int) int {
     dp[0] = 0
     for i := 1; i <= n; i++ {
         m := math.MinInt64
-        for j := 1; j <= max(i, K); j++ {
+        for j := 1; j <= min(i, K); j++ {
             m = max(m, A[i-j])
             dp[i] = max(dp[i], dp[i-j] + m * j)
         }
