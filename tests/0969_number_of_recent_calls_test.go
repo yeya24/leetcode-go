@@ -51,7 +51,7 @@ type RecentCounter struct {
 	count int
 }
 
-func Constructor() RecentCounter {
+func RecentCounterConstructor() RecentCounter {
 	return RecentCounter{times: make([]int, 0), count: 0}
 }
 
