@@ -24,7 +24,6 @@ import (
  *
  *
  *
- * <img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png" style="width: 300px; height: 97px; margin-top: 8px; margin-bottom: 8px;" />
  *
  * Example 2:
  *
@@ -36,7 +35,6 @@ import (
  *
  *
  *
- * <img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test2.png" style="width: 141px; height: 74px;" />
  *
  * Example 3:
  *
@@ -47,7 +45,6 @@ import (
  *
  *
  *
- * <img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test3.png" style="width: 45px; height: 45px;" />
  *
  *
  *
