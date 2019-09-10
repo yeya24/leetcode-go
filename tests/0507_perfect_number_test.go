@@ -35,6 +35,10 @@ func TestPerfectNumber(t *testing.T) {
 			input:  28,
 			output: true,
 		},
+		{
+			input: 64,
+			output: false,
+		},
 	}
 	for _, c := range cases {
 		x := checkPerfectNumber(c.input)
@@ -54,7 +58,11 @@ func checkPerfectNumber(num int) bool {
 	root := int(math.Sqrt(float64(num)))
 	for i := 2; i <= root; i++ {
 		if num%i == 0 {
-			sum += i + (num/i)
+			if root * root == num && i == root {
+				sum += i
+			} else {
+				sum += i + (num/i)
+			}
 		}
 	}
 	return sum == num
