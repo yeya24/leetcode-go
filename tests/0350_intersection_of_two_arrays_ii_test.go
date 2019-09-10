@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"math"
 	"reflect"
 	"testing"
 )
@@ -57,7 +56,7 @@ func TestIntersectionofTwoArraysII(t *testing.T) {
 		{
 			input:  []int{4, 9, 5},
 			input1: []int{9, 4, 9, 8, 4},
-			output: []int{4, 9},
+			output: []int{9, 4},
 		},
 	}
 	for _, c := range cases {
@@ -75,16 +74,11 @@ func intersect(nums1 []int, nums2 []int) []int {
 	for _, n := range nums1 {
 		m1[n] += 1
 	}
-	m2 := make(map[int]int)
+	res := []int{}
 	for _, n := range nums2 {
-		m2[n] += 1
-	}
-	res := make([]int, 0)
-	for n, v := range m1 {
-		if x, ok := m2[n]; ok {
-			for i := 0; i < int(math.Min(float64(v), float64(x))); i++ {
-                res = append(res, n)
-			}
+		if m1[n] > 0 {
+			res = append(res, n)
+			m1[n]--
 		}
 	}
 	return res

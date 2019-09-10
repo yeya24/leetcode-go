@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -47,7 +46,6 @@ func TestPrimeArrangements(t *testing.T) {
 	}
 	for _, c := range cases {
 		x := numPrimeArrangements(c.input)
-		fmt.Println(x)
 		if x != c.output {
 			t.Fail()
 		}
