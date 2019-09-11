@@ -58,6 +58,7 @@ var valueMap = map[string]string{
 	"&#39;":         "'",
 	"\n\n":          "\n",
 	"\n":            "\n * ",
+	"&times;":       "*",
 }
 
 var (
