@@ -72,6 +72,11 @@ func TestFindSmallestLetterGreaterThanTarget(t *testing.T) {
 			target: 'c',
 			output: 'f',
 		},
+		{
+			input: []byte{'a','b'},
+			target: 'z',
+			output: 'a',
+		},
 	}
 	for _, c := range cases {
 		x := nextGreatestLetter(c.input, c.target)
