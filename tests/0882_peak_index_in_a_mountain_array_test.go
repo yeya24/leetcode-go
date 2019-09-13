@@ -47,16 +47,16 @@ func TestPeakIndexinaMountainArray(t *testing.T) {
 		output int
 	}{
 		{
-			input:  []int{0,1,0},
+			input:  []int{0, 1, 0},
 			output: 1,
 		},
 		{
-			input:  []int{0,2,1,0},
+			input:  []int{0, 2, 1, 0},
 			output: 1,
 		},
 	}
 	for _, c := range cases {
-		x := peakIndexInMountainArray(c.input)
+		x := peakIndexInMountainArray2(c.input)
 		if x != c.output {
 			t.Fail()
 		}
@@ -65,13 +65,28 @@ func TestPeakIndexinaMountainArray(t *testing.T) {
 
 // submission codes start here
 
+// linear way
 func peakIndexInMountainArray(A []int) int {
 	for i := 1; i < len(A)-1; i++ {
-        if A[i] > A[i+1] {
-            return i
-        }
+		if A[i] > A[i+1] {
+			return i
+		}
 	}
 	return -1
+}
+
+// use binary search
+func peakIndexInMountainArray2(A []int) int {
+	i, j := 1, len(A)-1
+	for i < j {
+		m := (i + j) / 2
+		if A[m] > A[m+1] {
+			j = m
+		} else {
+			i = m + 1
+		}
+	}
+	return i
 }
 
 // submission codes end
