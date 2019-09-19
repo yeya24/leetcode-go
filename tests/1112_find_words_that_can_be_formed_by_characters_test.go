@@ -72,24 +72,23 @@ func TestFindWordsThatCanBeFormedbyCharacters(t *testing.T) {
 // submission codes start here
 
 func countCharacters(words []string, chars string) int {
-    m := make(map[rune]int)
-    res := 0
+    sum := 0
+    m := [26]byte{}
     for _, v := range chars {
-        m[v]+=1
+        m[v-'a']+=1
     }
     for _, v := range words {
-        z := make(map[rune]int)
-        res += len(v)
+        sum += len(v)
+        m2 := [26]byte{}
         for _, j := range v {
-            z[j]+=1
-            if z[j] > m[j] {
-                res -= len(v)
+            m2[j-'a']+=1
+            if m2[j-'a'] > m[j-'a'] {
+                sum -= len(v)
                 break
             }
         }
-
     }
-    return res
+    return sum
 }
 
 // submission codes end
