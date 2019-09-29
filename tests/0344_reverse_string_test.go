@@ -37,15 +37,15 @@ import (
 
 func TestReverseString(t *testing.T) {
 	cases := []struct {
-		input      string
-		expect      string
-	} {
+		input  string
+		expect string
+	}{
 		{
-			input: "hello",
+			input:  "hello",
 			expect: "olleh",
 		},
 		{
-			input: "test",
+			input:  "test",
 			expect: "tset",
 		},
 	}
@@ -57,14 +57,10 @@ func TestReverseString(t *testing.T) {
 // submission codes start here
 
 func reverseString(s []byte) {
-	helper(s, 0, len(s)-1)
-}
-
-func helper(s []byte, start, end int) {
+	end := len(s) - 1
+	start := 0
 	for start < end {
-		x := s[start]
-		s[start] = s[end]
-		s[end] = x
+		s[end], s[start] = s[start], s[end]
 		start++
 		end--
 	}
