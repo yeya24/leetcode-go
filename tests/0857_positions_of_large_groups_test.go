@@ -51,18 +51,18 @@ func TestPositionsofLargeGroups(t *testing.T) {
 		input  string
 		output [][]int
 	}{
-		//{
-		//	input:  "abbxxxxzzy",
-		//	output: [][]int{{3, 6}},
-		//},
-		//{
-		//	input:  "abc",
-		//	output: [][]int{},
-		//},
-		//{
-		//	input:  "abcdddeeeeaabbbcd",
-		//	output: [][]int{{3, 5}, {6, 9}, {12, 14}},
-		//},
+		{
+			input:  "abbxxxxzzy",
+			output: [][]int{{3, 6}},
+		},
+		{
+			input:  "abc",
+			output: [][]int{},
+		},
+		{
+			input:  "abcdddeeeeaabbbcd",
+			output: [][]int{{3, 5}, {6, 9}, {12, 14}},
+		},
 		{
 			input:  "aaa",
 			output: [][]int{{0, 2}},
