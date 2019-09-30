@@ -13,6 +13,8 @@ import (
 var valueMap = map[string]string{
 	"<strong>":      "",
 	"</strong>":     "",
+	"<small>":       "",
+	"</small>":      "",
 	"<em>":          "",
 	"</em>":         "",
 	"</p>":          "",

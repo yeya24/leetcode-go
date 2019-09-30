@@ -52,11 +52,14 @@ func TestMinimumPathSum(t *testing.T) {
 
 func minPathSum(grid [][]int) int {
 	m := len(grid)
-	n := len(grid[0])
-	l := m * n
-	if m == 0 || n == 0 {
+	if m == 0 {
 		return 0
 	}
+	n := len(grid[0])
+	if n == 0 {
+		return 0
+	}
+	l := m * n
 	paths := make([]int, l)
 	paths[0] = grid[0][0]
 	for i := 0; i < m; i++ {
