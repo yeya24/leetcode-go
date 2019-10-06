@@ -26,3 +26,10 @@ func min(a, b int) int {
 	}
 	return a
 }
+
+func abs(a, b int) int {
+	if a > b {
+		return a - b
+	}
+	return b - a
+}
