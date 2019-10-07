@@ -1,7 +1,6 @@
 package tests
 
 import (
-    "fmt"
     "reflect"
     "testing"
 )
@@ -54,7 +53,6 @@ func TestPathSumII(t *testing.T) {
     }
     for _, c := range cases {
         x := pathSum(c.input, c.sum)
-        fmt.Println(x)
         if !reflect.DeepEqual(x, c.output) {
             t.Fail()
         }
@@ -74,11 +72,11 @@ func TestPathSumII(t *testing.T) {
 func pathSum(root *TreeNode, sum int) [][]int {
     var res [][]int
     var path []int
-    dfsPathSum(root, 0, sum, path, &res)
+    dfsPathSumII(root, 0, sum, path, &res)
     return res
 }
 
-func dfsPathSum(root *TreeNode, cur, sum int, path []int, res *[][]int) {
+func dfsPathSumII(root *TreeNode, cur, sum int, path []int, res *[][]int) {
     if root == nil {
         return
     }
@@ -90,8 +88,8 @@ func dfsPathSum(root *TreeNode, cur, sum int, path []int, res *[][]int) {
         }
         return
     }
-    dfsPathSum(root.Left, cur, sum, path, res)
-    dfsPathSum(root.Right, cur, sum, path, res)
+    dfsPathSumII(root.Left, cur, sum, path, res)
+    dfsPathSumII(root.Right, cur, sum, path, res)
 }
 
 // submission codes end

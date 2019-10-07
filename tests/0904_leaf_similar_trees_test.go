@@ -43,8 +43,8 @@ func TestLeafSimilarTrees(t *testing.T) {
  */
 func leafSimilar(root1 *TreeNode, root2 *TreeNode) bool {
     var arr1, arr2 []int
-    arr1 = dfsSimilarLeaf(root1, arr1)
-    arr2 = dfsSimilarLeaf(root2, arr2)
+    dfsSimilarLeaf(root1, &arr1)
+    dfsSimilarLeaf(root2, &arr2)
     if len(arr1) != len(arr2) {
         return false
     }
@@ -56,18 +56,17 @@ func leafSimilar(root1 *TreeNode, root2 *TreeNode) bool {
     return true
 }
 
-func dfsSimilarLeaf(root *TreeNode, list []int) []int {
+func dfsSimilarLeaf(root *TreeNode, list *[]int) {
     if root != nil {
         if root.Left == nil && root.Right == nil {
-            list = append(list, root.Val)
+           *list =  append(*list, root.Val)
         }
         if root.Left != nil {
-            list = dfsSimilarLeaf(root.Left, list)
+            dfsSimilarLeaf(root.Left, list)
         }
         if root.Right != nil {
-            list = dfsSimilarLeaf(root.Right, list)
+            dfsSimilarLeaf(root.Right, list)
         }
     }
-    return list
 }
 // submission codes end
