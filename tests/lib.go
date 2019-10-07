@@ -33,3 +33,10 @@ func abs(a, b int) int {
 	}
 	return b - a
 }
+
+func gcd(a, b int) int {
+	if a == 0 {
+		return b
+	}
+	return gcd(b%a, a)
+}

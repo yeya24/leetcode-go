@@ -57,7 +57,7 @@ func TestMaxAreaofIsland(t *testing.T) {
 		},
 	}
 	for _, c := range cases {
-		x := maxAreaOfIsland(c.input)
+		x := maxAreaOfIsland2(c.input)
 		if x != c.output {
 			t.Fail()
 		}
@@ -101,6 +101,46 @@ func dfsIslandsAreas(grid [][]int, x, y, areas int) int {
 		}
 	}
 	return areas
+}
+
+// This way uses a new 2-D array to check if the island has been visited, so we don' t
+// need to change the original input grid.
+func maxAreaOfIsland2(grid [][]int) int {
+	m := len(grid)
+	if m == 0 {
+		return 0
+	}
+	n := len(grid[0])
+	if n == 0 {
+		return 0
+	}
+	seen := make([][]bool, m)
+	for i := 0; i < m; i++ {
+		seen[i] = make([]bool, n)
+	}
+	maxAreas := 0
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == 1 {
+				maxAreas = max(maxAreas, dfsIslandsAreas2(grid, seen, i, j))
+			}
+		}
+	}
+	return maxAreas
+}
+
+func dfsIslandsAreas2(grid [][]int, seen [][]bool, x, y int) int {
+	if x < 0 || y < 0 || x >= len(grid) || y >= len(grid[0]) || seen[x][y] || grid[x][y] == 0 {
+		return 0
+	}
+	seen[x][y] = true
+	dx := [4]int{1, 0, -1, 0}
+	dy := [4]int{0, 1, 0, -1}
+	sum := 1
+	for i := 0; i < 4; i++ {
+		sum += dfsIslandsAreas2(grid, seen, x+dx[i], y+dy[i])
+	}
+	return sum
 }
 
 // submission codes end
