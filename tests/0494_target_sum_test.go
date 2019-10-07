@@ -1,52 +1,84 @@
 package tests
 
 import (
-    "testing"
+	"testing"
 )
 
 /**
  * [494] Target Sum
  *
- * 
+ *
  * You are given a list of non-negative integers, a1, a2, ..., an, and a target, S. Now you have 2 symbols + and -. For each integer, you should choose one from + and - as its new symbol.
- *  
- * 
- * Find out how many ways to assign symbols to make sum of integers equal to target S.  
- * 
- * 
+ *
+ *
+ * Find out how many ways to assign symbols to make sum of integers equal to target S.
+ *
+ *
  * Example 1:
- * 
- * Input: nums is [1, 1, 1, 1, 1], S is 3. 
+ *
+ * Input: nums is [1, 1, 1, 1, 1], S is 3.
  * Output: 5
- * Explanation: 
- * 
+ * Explanation:
+ *
  * -1+1+1+1+1 = 3
  * +1-1+1+1+1 = 3
  * +1+1-1+1+1 = 3
  * +1+1+1-1+1 = 3
  * +1+1+1+1-1 = 3
- * 
+ *
  * There are 5 ways to assign symbols to make the sum of nums be target 3.
- * 
- * 
- * 
+ *
+ *
+ *
  * Note:
- * 
- * The length of the given array is positive and will not exceed 20. 
+ *
+ * The length of the given array is positive and will not exceed 20.
  * The sum of elements in the given array will not exceed 1000.
  * Your output answer is guaranteed to be fitted in a 32-bit integer.
- * 
- * 
+ *
+ *
  */
 
 func TestTargetSum(t *testing.T) {
-
+	var cases = []struct {
+		input  []int
+		S      int
+		output int
+	}{
+		{
+			input:  []int{1, 1, 1, 1, 1},
+			S:      3,
+			output: 5,
+		},
+	}
+	for _, c := range cases {
+		x := findTargetSumWays(c.input, c.S)
+		if x != c.output {
+			t.Fail()
+		}
+	}
 }
 
 // submission codes start here
 
 func findTargetSumWays(nums []int, S int) int {
-    return 1
+	dp := [2001]int{}
+	dp[nums[0]+1000] += 1
+	dp[-nums[0]+1000] += 1
+	for i := 1; i < len(nums); i++ {
+		next := [2001]int{}
+		for sum := -1000; sum <= 1000; sum++ {
+        	if dp[sum+1000] > 0 {
+        		next[nums[i]+sum+1000] += dp[sum+1000]
+				next[-nums[i]+sum+1000] += dp[sum+1000]
+			}
+		}
+		dp = next
+	}
+	if S > 1000 {
+		return 0
+	}
+	return dp[S+1000]
 }
 
 // submission codes end
