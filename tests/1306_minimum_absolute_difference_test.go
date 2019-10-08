@@ -84,11 +84,11 @@ func minimumAbsDifference(arr []int) [][]int {
 	sort.Ints(arr)
 	minDiff := math.MaxInt64
 	for i := 1; i < len(arr); i++ {
-	    minDiff = min(minDiff, abs(arr[i], arr[i-1]))
+	    minDiff = min(minDiff, diff(arr[i], arr[i-1]))
     }
 	res := [][]int{}
 	for i := 1; i < len(arr); i++ {
-	    if abs(arr[i], arr[i-1]) == minDiff {
+	    if diff(arr[i], arr[i-1]) == minDiff {
 			res = append(res, []int{arr[i-1], arr[i]})
         }
     }

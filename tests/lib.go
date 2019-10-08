@@ -27,7 +27,7 @@ func min(a, b int) int {
 	return a
 }
 
-func abs(a, b int) int {
+func diff(a, b int) int {
 	if a > b {
 		return a - b
 	}
@@ -39,4 +39,11 @@ func gcd(a, b int) int {
 		return b
 	}
 	return gcd(b%a, a)
+}
+
+func abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
 }
