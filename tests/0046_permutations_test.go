@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -40,7 +39,6 @@ func TestPermutations(t *testing.T) {
 	}
 	for _, c := range cases {
 		x := permute(c.input)
-		fmt.Println(x)
 		if !reflect.DeepEqual(x, c.output) {
 			t.Fail()
 		}
