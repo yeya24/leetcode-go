@@ -40,11 +40,11 @@ func TestCombinationSumIII(t *testing.T) {
 		k      int
 		output [][]int
 	}{
-		//{
-		//    n: 7,
-		//    k: 3,
-		//    output: [][]int{{1,2,4}},
-		//},
+		{
+		   n: 7,
+		   k: 3,
+		   output: [][]int{{1,2,4}},
+		},
 		{
 			n:      9,
 			k:      3,
