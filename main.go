@@ -130,7 +130,7 @@ func buildDescription(desc string) string {
 		desc = strings.Replace(desc, k, v, -1)
 	}
 	regs := []*regexp.Regexp{regexp.MustCompile("<span.+>"), regexp.MustCompile("<a.+>"),
-		regexp.MustCompile("<img.+>"), regexp.MustCompile("<font.+>")}
+		regexp.MustCompile("<img.+>"), regexp.MustCompile("<font.+>"), regexp.MustCompile("<div.+>")}
 	for _, r := range regs {
 		for _, s := range r.FindAllString(desc, -1) {
 			desc = strings.Replace(desc, s, "", -1)
