@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"math"
 	"testing"
 )
 
@@ -64,6 +65,7 @@ func TestDegreeofanArray(t *testing.T) {
 
 // submission codes start here
 
+// 3 hashmaps, O(n)
 func findShortestSubArray(nums []int) int {
 	left := make(map[int]int)
 	right := make(map[int]int)
@@ -76,7 +78,6 @@ func findShortestSubArray(nums []int) int {
 		}
 		right[n] = i
 		count[n] += 1
-
 	}
 	for i, v := range count {
 		if v > max {
@@ -91,6 +92,43 @@ func findShortestSubArray(nums []int) int {
 		a := right[v] - left[v] + 1
 		if a < ans {
 			ans = a
+		}
+	}
+	return ans
+}
+
+// Use one hashmap, time O(n*k), k is the number of keys that appear most times.
+func findShortestSubArray2(nums []int) int {
+	m := make(map[int]int)
+	maxValue := 0
+	for _, v := range nums {
+		m[v] += 1
+		if m[v] > maxValue {
+			maxValue = m[v]
+		}
+	}
+	res := []int{}
+	for k, v := range m {
+		if v == maxValue {
+			res = append(res, k)
+		}
+	}
+	ans := math.MaxInt64
+	for _, r := range res {
+		left := len(nums)
+		right := 0
+		for i, v := range nums {
+			if v == r {
+				if i < left {
+					left = i
+				}
+				if i > right {
+					right = i
+				}
+			}
+		}
+		if right - left + 1 < ans {
+			ans = right-left+1
 		}
 	}
 	return ans
