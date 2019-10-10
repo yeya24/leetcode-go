@@ -1,7 +1,6 @@
 package tests
 
 import (
-    "fmt"
     "testing"
 )
 
@@ -61,7 +60,6 @@ func TestCombinationSumIV(t *testing.T) {
     }
     for _, c := range cases {
         x := combinationSum4DP(c.nums, c.target)
-        fmt.Println(x)
         if x != c.output {
            t.Fail()
         }
