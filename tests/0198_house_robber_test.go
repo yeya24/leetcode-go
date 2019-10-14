@@ -83,4 +83,21 @@ func rob1(nums []int) int {
     return dp[len(nums)-1]
 }
 
+// use rolling array
+func rob2(nums []int) int {
+    if len(nums) == 0 {
+        return 0
+    }
+    if len(nums) == 1 {
+        return nums[0]
+    }
+    dp := make([]int, 2)
+    dp[0] = nums[0]
+    dp[1] = max(nums[0],nums[1])
+    for i := 2; i < len(nums); i++ {
+        dp[i%2] = max(dp[(i-1)%2], dp[(i-2)%2]+nums[i])
+    }
+    return max(dp[0], dp[1])
+}
+
 // submission codes end
