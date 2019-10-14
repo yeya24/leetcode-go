@@ -46,12 +46,12 @@ func TestCustomSortString(t *testing.T) {
 		{
 			S:      "cba",
 			T:      "abcd",
-			output: "cbad",
+			output: "dcba",
 		},
 		{
 			S: "test",
 			T: "abtggsccedt",
-			output: "",
+			output: "abggccdttes",
 		},
 	}
 	for _, c := range cases {
