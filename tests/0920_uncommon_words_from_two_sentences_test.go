@@ -2,8 +2,8 @@ package tests
 
 import (
 	"reflect"
-    "strings"
-    "testing"
+	"strings"
+	"testing"
 )
 
 /**
