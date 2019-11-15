@@ -1,0 +1,29 @@
+# Golang CircleCI 2.1 configuration file
+version: 2.1
+
+orbs:
+  # See https://circleci.com/orbs/registry/orb/circleci/go.
+  go: circleci/go@0.2.0
+
+jobs:
+  release:
+    docker:
+      - image: circleci/golang:1.12
+    working_directory: /go/src/leetcode-go
+    steps:
+      - checkout
+      - run: curl -sL https://git.io/goreleaser | bash
+      - run:
+          goreleaser release
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - release:
+          # Only run this job on git tag pushes
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*(-.*)*/
