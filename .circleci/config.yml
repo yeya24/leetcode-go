@@ -38,11 +38,17 @@ jobs:
   publish-images:
     docker:
       - image: circleci/golang:1.12
+    environment:
+      - GO111MODULE: "on"
+    working_directory: /go/src/leetcode-go
     steps:
       - checkout
       - setup_remote_docker
       - run: echo 'export VERSION=${CIRCLE_TAG:1}' >> $BASH_ENV
       - go/load-cache
+      - run:
+          name: build
+          command: go build -o leetcode-cli .
       - run:
           name: push images
           command: |
