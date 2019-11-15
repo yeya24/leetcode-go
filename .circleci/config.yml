@@ -9,14 +9,19 @@ jobs:
   test:
     docker:
       - image: circleci/golang:1.12
-    working_directory: /go/src/leetcode-go
+    environment:
+      - GO111MODULE: "on"
+    working_directory: /go/src/github.com/yeya24/leetcode-go
     steps:
       - checkout
+      - go/load-cache
+      - run: go mod tidy
       - run:
           name: test
           command: |
             go vet ./...
             go test ./tests
+      - go/save-cache
 
   release:
     docker:
