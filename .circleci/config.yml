@@ -35,6 +35,28 @@ jobs:
       - run: curl -sL https://git.io/goreleaser | bash
       - go/save-cache
 
+  publish-images:
+    docker:
+      - image: circleci/golang:1.12
+    environment:
+      - GO111MODULE: "on"
+    working_directory: /go/src/leetcode-go
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: echo 'export VERSION=${CIRCLE_TAG:1}' >> $BASH_ENV
+      - go/load-cache
+      - run:
+          name: build
+          command: go build -o leetcode-cli .
+      - run:
+          name: push images
+          command: |
+            docker build -t yeya24/leetcode-cli:$VERSION .
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push yeya24/leetcode-cli:$VERSION
+      - go/save-cache
+
 workflows:
   version: 2
   ci:
@@ -43,6 +65,13 @@ workflows:
   main:
     jobs:
       - release:
+          # Only run this job on git tag pushes
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v[0-9]+(\.[0-9]+){2}(-.+|[^-.]*)$/
+      - publish-images:
           # Only run this job on git tag pushes
           filters:
             branches:
