@@ -41,7 +41,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: export VERSION=${CIRCLE_TAG:1}
+      - run: echo 'export VERSION=${CIRCLE_TAG:1}' >> $BASH_ENV
       - go/load-cache
       - run:
           name: push images
