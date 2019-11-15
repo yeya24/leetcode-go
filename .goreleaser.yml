@@ -5,8 +5,7 @@ before:
     # you may remove this if you don't use vgo
     - go mod tidy
 builds:
-  - main: main.go promblem.go http.go
-    binary: leetcode-cli
+  - binary: leetcode-cli
     env:
     - CGO_ENABLED=0
     goarch:

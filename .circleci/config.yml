@@ -33,7 +33,6 @@ jobs:
       - checkout
       - go/load-cache
       - run: curl -sL https://git.io/goreleaser | bash
-      - run: goreleaser release
       - go/save-cache
 
 workflows:
