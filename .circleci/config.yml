@@ -6,6 +6,18 @@ orbs:
   go: circleci/go@0.2.0
 
 jobs:
+  test:
+    docker:
+      - image: circleci/golang:1.12
+    working_directory: /go/src/leetcode-go
+    steps:
+      - checkout
+      - run:
+          name: test
+          command: |
+            go vet ./...
+            go test ./tests
+
   release:
     docker:
       - image: circleci/golang:1.12
@@ -13,11 +25,13 @@ jobs:
     steps:
       - checkout
       - run: curl -sL https://git.io/goreleaser | bash
-      - run:
-          goreleaser release
+      - run: goreleaser release
 
 workflows:
   version: 2
+  ci:
+    jobs:
+      - test
   main:
     jobs:
       - release:
