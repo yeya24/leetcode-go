@@ -10,12 +10,12 @@ jobs:
     docker:
       - image: circleci/golang:1.12
     environment:
-      - GO111MODULE: on
+      - GO111MODULE: "on"
     working_directory: /go/src/github.com/yeya24/leetcode-go
     steps:
       - checkout
       - go/load-cache
-      - run: GO111MODULE=on go mod tidy
+      - run: go mod tidy
       - run:
           name: test
           command: |
