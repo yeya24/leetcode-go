@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - go/load-cache
-      - go/mod-download
+      - run: GO111MODULE=on go mod tidy
       - run:
           name: test
           command: |
