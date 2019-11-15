@@ -12,11 +12,14 @@ jobs:
     working_directory: /go/src/leetcode-go
     steps:
       - checkout
+      - go/load-cache
+      - go/mod-download
       - run:
           name: test
           command: |
             go vet ./...
             go test ./tests
+      - go/save-cache
 
   release:
     docker:
