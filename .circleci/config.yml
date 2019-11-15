@@ -9,7 +9,7 @@ jobs:
   test:
     docker:
       - image: circleci/golang:1.12
-    working_directory: /go/src/leetcode-go
+    working_directory: /go/src/github.com/yeya24/leetcode-go
     steps:
       - checkout
       - go/load-cache
